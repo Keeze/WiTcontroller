@@ -1,6 +1,6 @@
 # WiTcontroller
 
-A WiTcontroller is a simple DIY, handheld controller that talks to a WiThrottle Server (JMRI, DCC-EX  EX-CommandStation and many others) using the WiThrottle protocol to control DCC model trains. 
+A WiTcontroller is a simple DIY, handheld controller that talks to a WiThrottle Server (JMRI, DCC-EX EX-CommandStation, Digitrax LnWi and many others) using the WiThrottle protocol to control DCC model trains. 
 
 [See a video of it in use here.](https://youtu.be/RKnhfBCP_SQ)
 
@@ -15,32 +15,39 @@ A WiTcontroller is a simple DIY, handheld controller that talks to a WiThrottle 
 
 1. Some basic soldering skills.  
 
-    The components will work if just plugged together using jumpers, but they take a lot of space that way, so soldering them together is advised to make it hand held.
+    The components will work if just plugged together using jumpers, but they take a lot of space that way, so soldering them together is advised to make it more hand held.
 
 2. Loading the code (sketch) requires downloading of one of the IDEs, this sketch, the libraries, etc. so some experience with Arduinos is helpful, but not critical.
 
 3. A WiThrottle Server to connect to. WiTcontroller will work with any WiThrottle Server. e.g.
 
     * JMRI
-    * DCC++EX
+    * DCC-EX EX-CommandStation
     * MRC WiFi
-    * Dijitrax LnWi
+    * Digitrax LnWi
 
 ---
 
 ## Building
 
-Required Components
+### Required Components
 
 * WeMos Lite LOLIN32  (ESP32 Arduino with LiPo charger) ([Example](https://www.ebay.com.au/itm/284800618644?hash=item424f709094:g:-soAAOSwHslfC9ce&frcectupt=true))
 * 3x4 Keypad  ([Example](https://www.jaycar.com.au/12-key-numeric-keypad/p/SP0770?pos=2&queryId=20aedf107668ad42c6fe1f8b7f7a9ca7))
 * Polymer Lithium Ion Battery LiPo 400mAh 3.7V 502535 JST Connector (or larger capacity) ([500mAh Example](https://www.ebay.com.au/itm/133708965793?hash=item1f21ace7a1:g:tlwAAOSwfORgYqYK))
-* KY-040 Rotary Encoder Module ([Example](https://www.ebay.com.au/itm/394147297055?hash=item5bc502771f:g:gr0AAOSwcixiwo2~&frcectupt=true))
-* OLED Display 0.96" 128x64 Blue I2C IIC SSD1306 ([Example](https://www.ebay.com.au/itm/273746192621?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2060353.m2749.l2649))
+* KY-040 Rotary Encoder Module ([Example](https://www.aliexpress.com/item/1005003946689694.html?albagn=888888&&src=google&albch=search&acnt=479-062-3723&isdl=y&aff_short_key=UneMJZVf&albcp=21520181724&albag=168529973707&slnk=&trgt=dsa-1464330247393&plac=&crea=707854323770&netw=g&device=c&mtctp=&memo1=&albbt=Google_7_search&aff_platform=google&gad_source=1&gclid=Cj0KCQjwiOy1BhDCARIsADGvQnBPdlEVLYbYnLoOnN1p2bdjte0jYmInrgFD0WG16aF3GZtvrWTb6o0aAo8VEALw_wcB&gclsrc=aw.ds))
+* OLED Display 0.96" 128x64 I2C IIC SSD1306 ([Example](https://www.ebay.com.au/itm/273746192621?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2060353.m2749.l2649))
 * Case - my one was 3d printed (see below)
 * Knob ([Example](https://www.jaycar.com.au/35mm-knob-matching-equipment-style/p/HK7766?pos=7&queryId=cbd19e2486968bca41273cc2dbce54a4&sort=relevance))
 * Wire - If you plan to solder the connections,which is the recommended approach, then stranded, coloured wire is advisable.  ([Example](https://www.jaycar.com.au/rainbow-cable-16-core-sold-per-metre/p/WM4516))
-* Optional: Up to 7 additional buttons can be added, each with their own independent commands.
+
+### Optional Components
+
+* Optional: Up to 7 additional push buttons can be added, each with their own independent commands. ([Example](https://www.jaycar.com.au/red-miniature-pushbutton-spst-momentary-action-125v-1a-rating/p/SP0710))
+* Optional: A 1.3" OLED Display 128x64 can be used instead of the 0.96" OLED Display 128x64 ([Example](https://www.aliexpress.com/item/32683094040.html?spm=a2g0o.order_list.order_list_main.110.25621802jRBB7y)) Note: You will need to make a small configuration change for this to work correctly.
+* Optional: You can use a 4x4 keypad instead of the 3x4 keypad. Note: You will need to make a small configuration change in ``config_buttons.h`` for this to work correctly.
+
+### Pinouts
 
 *Standard Configuration Pinouts*
 ![Assembly diagram](WiTcontroller%20pinouts%20v0.1.png)
@@ -51,6 +58,36 @@ Required Components
 *Pinouts for Optional 4x4 keypad and Additional Buttons*
 ![Assembly diagram - 4x4 keypad and Optional Additional Buttons](WiTcontroller%20-%204x4%20keypad,%20Optional%20Buttons%20-%20pinouts%20v0.1.png)
 
+*Default Pins for the keypads*
+
+3x4 Keypad - Left to Right
+ * C1 PIN 0
+ * R0 PIN 19
+ * C0 PIN 4
+ * R3 PIN 16
+ * C2 PIN 2
+ * R2 PIN 17
+ * R1 PIN 18
+
+4x4 keypad - Left to Right
+ * C0 PIN 4
+ * C1 PIN 0
+ * C2 PIN 2
+ * C3 PIN 33
+ * R0 PIN 19
+ * R1 PIN 18
+ * R2 PIN 17
+ * R3 PIN 16
+ 
+Notes: 
+
+* Different keypads often arrange the pins on the base of the keypad differently.  So it is important make sure the pins on the keypad are correctly identified and adjusted as needed.
+
+### Case
+
+![3D printer case 1](images/witcontroller1.jpg)
+
+![3D printed case 2](images/witcontroller1.jpg)
 
 Notes:
 
@@ -62,10 +99,12 @@ Notes:
 
 ## Loading the code
 
+  **WARNING!**
+
 1. Download the Arduino IDE.  
     * Available from  https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE
-2. Download the esp32 boards in the Arduino IDE.
-    * add the esp322 support with the following instructions:  (See here for detailed instructions:  https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
+2. Download the **esp32** boards in the Arduino IDE.
+    * Add the esp322 support with the following instructions:  (See here for detailed instructions:  https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
         * In the Arduino IDE, go to *File* > *Preferences*
         * Enter the following into the 'Additional Board Manager URLs' field:  https://dl.espressif.com/dl/package_esp32_index.json
     * Then Use the *Boards Manager* in the *Arduino IDE* to install the esp32 board support
@@ -84,27 +123,44 @@ Notes:
     * Download 
        * Open *https://github.com/flash62au/WiTcontroller*
        * Click the green "Code" button and select download zip
-       * Extract the zip file to a local folder.  The default folder for the Arduino usually looks like "...username\Documents\Arduino\". This is a good but not essential place to put it.
-4. Load the needed libraries to your PC. These can loaded from the *Library Manager* in the *Arduino IDE*.
+       * Extract the zip file to a local folder.  The default folder for the Arduino usually looks like "...username\Documents\Arduino\". This is a good, but not essential, place to put it.
+4. Load the needed libraries to your PC. <br/> These *MUST BE* loaded from the *Library Manager* in the *Arduino IDE*. 
     * *U8g2lib.h* -  Search for "U8g2".   Install version 2.34.22
     * *AiEsp32RotaryEncoder.h* - search for "Ai Esp32 Rotary Encoder".  Install Version 1.6
     * *Keypad.h* - Search for "Keypad" by Mark Stanley.   Install version 3.1.1
-    * *WiThrottleProtocol.h* - Search for "WiThrottleProtocol" (not "WiThrottle").  Install version 1.0.3 or later if available
+    * *WiThrottleProtocol.h* - Search for "WiThrottleProtocol" (not "WiThrottle").  Install version 1.1.14 or later if available.
+    
+      Note: <br/> **DO NOT** download these libraries *directly*. Use the *Library Manager*. <br/> **DO NOT** put them in the WiTcontroller folder.
 5. These should have been automatically installed when you downloaded the esp32 boards.  *YOU SHOULD NOT NEED TO DO ANYTHING SPECIFIC TO GET THESE*
     * *WiFi.h*  - https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFi
     * *ESPmDNS.h* - https://github.com/espressif/arduino-esp32/blob/master/libraries/ESPmDNS
-6. Copy '**config_network_example.h**' to a new file to '**config_network.h**'.
-    * Then edit it to include the network ssids you want to use.  (Not essential, but entering passwords via the encoder is tedious.)
-7. Copy '**config_buttons_example.h**' to a new file '**config_buttons.h**'.
+
+      Note: <br/> **DO NOT** download these libraries *directly*. Use the *Boards Manager*. <br/> **DO NOT** put them in the WiTcontroller folder.
+6. Copy the two example config files. <br/> You will need to use a *File Manger* type of app on the PC to do this.
+    * Copy ``config_network_example.h`` to a new file to ``config_network.h``. 
+    * Copy ``config_buttons_example.h`` to a new file ``config_buttons.h``.
+
+      Note: <br/> these files are not included in the download, so that you can personalise your configuration without fear that those configurations will be overridden if you update (download again) the WiTcontoller code.
+
+6. Open the Arduino IDE and **THEN** find and open the ``WiTcontoller.ino`` file.
+
+      Note: <br/> *If you open the file **from** the IDE*, rather then opening it from a File Manager, will automatically open *all the files in the WiTcontroller folder* in the IDE. 
+      
+      Whereas, *if you open it from a File manger app* (by double clicking on it) only the file you selected will open.
+
+7. Edit your personal ``config_network.h`` file. 
+    * Edit it to include the network SSIDs you want to use.  (Not essential, but entering passwords via the encoder is tedious.)
+7. Edit your personal ``config_buttons.h`` file.
     * Optionally, edit this to change the mapping of the keypad buttons to specific functions.
     * Optionally, edit this to configure the additional buttons (if you have included them) to specific functions.
     * Optionally, edit this to change if you want the function buttons to display when you press #, instead of the default of showing the Key Definitions
 8. Upload the sketch.  
-    * Select the board type as "WEMOS LOLIN32 Lite" in the *Arduino IDE*.
+    * Select the board type as ``WEMOS LOLIN32 Lite`` in the *Arduino IDE*.
     * Connect the board via USB and select the appropriate port in the *Arduino IDE*.
-    * Click *Upload* 
+    * Click ``Upload`` **-->**
 
 Notes: 
+   * WiTcontroller version 1.57 or later requires WiThrottleProtocol version 1.1.20 or later for the E_STOP and E_STOP_CURRENT_LOCO to work correctly.
    * WiTcontroller version 1.45 or later requires WiThrottleProtocol version 1.1.14 or later.
    * WiTcontroller version 1.41 or later requires WiThrottleProtocol version 1.1.12 or later.
    * WiTcontroller version 1.39 or later requires WiThrottleProtocol version 1.1.11 or later.
@@ -139,7 +195,7 @@ Notes:
 - Rudimentary on-the-fly consists
 - Assign commands directly to the 1-9 buttons (in the sketch) (see list below)
   - This is done in config_button.h
-  - Latching / non-latching for the function is provided by the roster entry of wiThrottle server
+  - Latching / non-latching for the function is provided by the roster entry of WiThrottle server
 - Optionally use a potentiometer (pot) instead of the rotary encoder
 - Optional ability to assign commands directly to the 1-7 additional buttons (in the sketch) (see list below)
   - These are defined config_button.h
@@ -215,6 +271,74 @@ Pressing '\*' again before the '\#' will terminate the current command (but not 
 
 Pressing the Encoder button while the ESP32 is in Deep Sleep will revive it.
 
+----
+
+### Screens
+
+## WiFI/SSID Connection Screens
+
+*Start-up - browsing for SSIDs*<br />
+![Start-up - browsing for SSIDs](images/screenshots/browsing_for_ssids.jpg)
+
+*SSID (WiFi networks) list*<br />
+![SSID list](images/screenshots/ssid_list.jpg)
+
+*Trying to to connect to SSID*<br />
+![Trying to to connect to SSID](images/screenshots/trying_to_connect.jpg)
+
+*Connecting to SSID*<br />
+![Connecting to SSID](images/screenshots/trying_to_connect.jpg)
+
+## WiThrottle Server Connection Screens
+
+*WiThrottle Server List*<br />
+![WiThrottle Server List](images/screenshots/wit_server_list.jpg)
+
+
+#### Throttle Screen
+
+*Throttle Screen with no loco acquired*<br />
+![Throttle Screen with no loco acquired](images/screenshots/throttle_no_loco_acquired.jpg)
+
+*Throttle Screen - with locos selected on throttle 1 and throttle 2*<br />
+![Throttle Screen](images/screenshots/throttle.jpg)
+
+```
+TT LLLL LLLL LLLL               BBBBB
+TT ----------------------------------
+f f f f f f f f f f f f f f f f f f f
+              SSSSS  DDDD
+              SSSSS  DDDD
+              SSSSS            
+M             SSSSS              llll
+P  h                          d sss d
+-------------------------------------
+mmmmmmmmm
+```
+
+* TT   = Current Throttle Number
+* LLLL = Currently acquire loco(s) on this throttle
+* SSSS = Speed of current throttle (0-126)
+* DDDD = Direction of current throttle (Fwd,Rev)
+* f    = state of each function of 30 functions (number displays if the function is active)<br /><br />
+* llll = First Loco on *next* available throttle
+* d    = Direction of next next available throttle (<,>)
+* sss  = Speed of next available throttle (0-126)<br /><br />
+* h    = heartbeat (only displays if heartbeat is disabled)
+* M    = Speed step multiplier
+* P    = Track Power
+* BBBB = Optional battery state
+* mmmm =  menu, other instructions or broadcast messages
+
+#### * Menu
+
+![Menu](images/screenshots/menu.jpg)
+
+#### # Direct Commands List
+
+![Direct Commands List](images/screenshots/direct_commands_list.jpg)
+
+----
 
 ### Default number key assignments (0-9)  (outside the menu)
 
@@ -245,6 +369,7 @@ Note: you need to edit config_buttons.h to alter these assignments   (copy confi
 - POWER_TOGGLE
 - POWER_ON
 - POWER_OFF
+- SHOW_HIDE_BATTERY
 - DIRECTION_TOGGLE
 - DIRECTION_FORWARD
 - DIRECTION_REVERSE
@@ -253,9 +378,11 @@ Note: you need to edit config_buttons.h to alter these assignments   (copy confi
 - MAX_THROTTLE_INCREASE    - change the number of available throttles on-the-fly
 - MAX_THROTTLE_DECREASE    - change the number of available throttles on-the-fly
 
+---
+
 ### instructions for optional use of a potentiometer (pot) instead of the encoder for the throttle
 
-confg_buttons.h can include the following optional defines:
+config_buttons.h can include the following optional defines:
 
   * \#define USE_ROTARY_ENCODER_FOR_THROTTLE false
   * \#define THROTTLE_POT_PIN 39
@@ -266,8 +393,6 @@ confg_buttons.h can include the following optional defines:
   If ``USE_ROTARY_ENCODER_FOR_THROTTLE`` is set to ``false`` the rotary encoder is ignored and a pot on the pin defined with ``THROTTLE_POT_PIN`` will be used instead.
 
   You must specify the PIN to be used.  Currently PINs 34, 35 and 39 are the only ones that cannot be used by the app for other purposes, so these are the safest to use.  This should be connected to the centre pin of the pot. The 3v and GND should be connected to the outer pins of the pot.
-
-    Note that eventually the app will upgraded to support a brake and reverser pots.  These will use pins 34 and 35 by default.
 
   The pot can be set to have 8 defined 'notches' (the default) or just a linear value.
 
@@ -285,19 +410,81 @@ confg_buttons.h can include the following optional defines:
 
   Sumner Patterson is developing an app to help find the appropriate pot values for the ``THROTTLE_POT_NOTCH_VALUES``.
 
-### instructions for optional use of a voltage divider to show the battery charge level
+---
 
-TBA
+### Instructions for optional use of a voltage divider to show the battery charge level
 
-Recommend adding a physical power switch as this will continually drain the battery, even when no being used.
+*To enable the battery monitor*, set the following to ``true``. The default is ``false``.
 
-*Pinouts for Optional Battery Monitor*
-![Assembly diagram - Optional Battery Monitor](WiTcontroller%20-%20Optional%20battery%20monitor.png)
+``#define USE_BATTERY_TEST true``
+
+*To set which pin to use.* The default is ``36``.
+
+``#define BATTERY_TEST_PIN 36``
+
+If the battery does not show 100% when plugged into the charger, you may need to adjust this value. The default is ``1.7``.
+
+``#define BATTERY_CONVERSION_FACTOR 1.7``
+
+*To show the calculated percentage*, set the following to ``true`` The default is ``false``.
+
+``#define USE_BATTERY_PERCENT_AS_WELL_AS_ICON true``
+
+*To force the HandCab to go to sleep at a specific level*, set this value. (e.g. to 3 or 5.) A value of less than zero (e.g. -1) will disable the feature. By default it is disabled (-1).
+
+``#define USE_BATTERY_SLEEP_AT_PERCENT 3``
+
+The display of the battery can be temporarily toggled by setting a key or button to ``SHOW_HIDE_BATTERY``.  The display will cycle between none, icon only and icon plus percent value. Note that ``USE_BATTERY_TEST`` must be set to `true` for this to have any effect.
+
+    Note: 
+    I recommend adding a physical power switch to disconnect the battery as this feature will, slowly, continually drain the battery, even when not being used.
+
+---
+
+
+### Instructions for German Translations     Anleitung für deutsche Übersetzungen
+
+The file ``Deutsche Übersetzungen.txt`` contains German translations (by Google Translate).  Add the contents of this file (cut and paste) into your ``config_buttons.h`` to see menus and messages in German.
+
+Die Datei ``Deutsche Übersetzungen.txt`` enthält deutsche Übersetzungen (von Google Translate).  Fügen Sie den Inhalt dieser Datei (Ausschneiden und Einfügen) in Ihre ``config_buttons.h`` ein, um Menüs und Meldungen auf Deutsch anzuzeigen.
+
+I would appreciate any assistance to improve these translations.
+If you are interested, please contact me directly for instructions.
+
+Ich würde mich über jede Hilfe zur Verbesserung dieser Übersetzungen freuen.
+Bei Interesse kontaktieren Sie mich bitte direkt für eine Anleitung.
 
 ---
 ---
 
 ## Change Log
+
+### V1.61
+- Bug fix - Speed step multiplier not being displayed
+- Added screenshots to the Readme
+
+### V1.60
+- ignore broadcast alert "Steal from other WiThrottle or JMRI throttle Required"
+
+### V1.59
+- Experimental attempt to automatically steal locos on Dijitrax systems
+
+### V1.58
+- bug fix when not using the battery test
+
+### V1.56 / 1.57
+- Moved the battery position to the top line
+- added an Action to show or hide the battery
+- Added some of the UI improvements from HandCab
+- Fixed the E_STOP VS E_STOP_CURRENT_LOCO. Requires WiThrottleProtocol version 1.1.20 to actually work differently.
+- Updated documentation. (Particularly on the use of the battery)
+
+### V1.55
+- automated fix the latest versions of the ESP32 Board Library (3.0.0 and later) having renamed an attribute. The code now automatically adjusts for this.  
+- German translation file included
+
+### V1.54
+- minor format change 
 
 ### V1.53
 - Add support for hardware build that utilises a bare EC11 rotary encoder (with no physical resistor pullups) in place of the KY040 encoder module (which incorporates physical pullups)

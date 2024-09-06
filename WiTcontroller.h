@@ -1,3 +1,7 @@
+//
+// DO NOT alter this file
+// 
+
 #define maxFoundWitServers 5     // must be 5 for the moment
 #define maxFoundSsids 60     // must be a multiple of 5
 #define maxRoster 60     // must be a multiple of 10
@@ -190,8 +194,8 @@ void writeOledArray(boolean, boolean, boolean, boolean);
 void clearOledArray(void);
 void writeOledDirectCommands(void);
 
-void deepSleepStart(void);
-void deepSleepStart(bool);
+void deepSleepStart();
+void deepSleepStart(int);
 
 char getMultiThrottleChar(int);
 int getMultiThrottleIndex(char);

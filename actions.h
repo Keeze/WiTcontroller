@@ -1,3 +1,7 @@
+//
+// DO NOT alter this file
+// 
+
 #define FUNCTION_NULL -1 // do nothing
 
 #define FUNCTION_0 0 // lights
@@ -57,6 +61,8 @@
 #define POWER_TOGGLE 501
 #define POWER_ON 502
 #define POWER_OFF 503
+
+#define SHOW_HIDE_BATTERY 504   // the battery test must be enabled for this to have any effect
 
 #define NEXT_THROTTLE 510
 

@@ -29,18 +29,18 @@
 // ********************************************************************************************
 
 // define what each button will do as direct press (not in a menu)   * and # cannot be remapped
-// see static.h or README.md for details on the allowed functions
+// see actions.h or README.md for details on the allowed functions
 
-#define CHOSEN_KEYPAD_0_FUNCTION     FUNCTION_0
-#define CHOSEN_KEYPAD_1_FUNCTION     FUNCTION_1
-#define CHOSEN_KEYPAD_2_FUNCTION     FUNCTION_2
-#define CHOSEN_KEYPAD_3_FUNCTION     FUNCTION_3
-#define CHOSEN_KEYPAD_4_FUNCTION     FUNCTION_4
-#define CHOSEN_KEYPAD_5_FUNCTION     NEXT_THROTTLE
-#define CHOSEN_KEYPAD_6_FUNCTION     SPEED_MULTIPLIER
-#define CHOSEN_KEYPAD_7_FUNCTION     DIRECTION_REVERSE
-#define CHOSEN_KEYPAD_8_FUNCTION     E_STOP
-#define CHOSEN_KEYPAD_9_FUNCTION     DIRECTION_FORWARD
+// #define CHOSEN_KEYPAD_0_FUNCTION     FUNCTION_0
+// #define CHOSEN_KEYPAD_1_FUNCTION     FUNCTION_1
+// #define CHOSEN_KEYPAD_2_FUNCTION     FUNCTION_2
+// #define CHOSEN_KEYPAD_3_FUNCTION     FUNCTION_3
+// #define CHOSEN_KEYPAD_4_FUNCTION     FUNCTION_4
+// #define CHOSEN_KEYPAD_5_FUNCTION     NEXT_THROTTLE
+// #define CHOSEN_KEYPAD_6_FUNCTION     SPEED_MULTIPLIER
+// #define CHOSEN_KEYPAD_7_FUNCTION     DIRECTION_REVERSE
+// #define CHOSEN_KEYPAD_8_FUNCTION     E_STOP
+// #define CHOSEN_KEYPAD_9_FUNCTION     DIRECTION_FORWARD
 // #define CHOSEN_KEYPAD_A_FUNCTION     CUSTOM_1
 // #define CHOSEN_KEYPAD_B_FUNCTION     CUSTOM_2
 // #define CHOSEN_KEYPAD_C_FUNCTION     CUSTOM_3
@@ -49,16 +49,16 @@
 // text that will appear when you press #
 // if you rearrange the items above, modify this text to suit    * and # cannot be remapped here
 
-#define CHOSEN_KEYPAD_0_DISPLAY_NAME     "0 Lights"
-#define CHOSEN_KEYPAD_1_DISPLAY_NAME     "1 Bell"
-#define CHOSEN_KEYPAD_2_DISPLAY_NAME     "2 Horn"
-#define CHOSEN_KEYPAD_3_DISPLAY_NAME     "3 F3"
-#define CHOSEN_KEYPAD_4_DISPLAY_NAME     "4 F4"
-#define CHOSEN_KEYPAD_5_DISPLAY_NAME     "5 Nxt Ttl"
-#define CHOSEN_KEYPAD_6_DISPLAY_NAME     "6 X Spd"
-#define CHOSEN_KEYPAD_7_DISPLAY_NAME     "7 Rev"
-#define CHOSEN_KEYPAD_8_DISPLAY_NAME     "8 Estop"
-#define CHOSEN_KEYPAD_9_DISPLAY_NAME     "9 Fwd"
+// #define CHOSEN_KEYPAD_0_DISPLAY_NAME     "0 Lights"
+// #define CHOSEN_KEYPAD_1_DISPLAY_NAME     "1 Bell"
+// #define CHOSEN_KEYPAD_2_DISPLAY_NAME     "2 Horn"
+// #define CHOSEN_KEYPAD_3_DISPLAY_NAME     "3 F3"
+// #define CHOSEN_KEYPAD_4_DISPLAY_NAME     "4 F4"
+// #define CHOSEN_KEYPAD_5_DISPLAY_NAME     "5 Nxt Ttl"
+// #define CHOSEN_KEYPAD_6_DISPLAY_NAME     "6 X Spd"
+// #define CHOSEN_KEYPAD_7_DISPLAY_NAME     "7 Rev"
+// #define CHOSEN_KEYPAD_8_DISPLAY_NAME     "8 Estop"
+// #define CHOSEN_KEYPAD_9_DISPLAY_NAME     "9 Fwd"
 
 // by default, # will show the list above. 
 // if you change the following line to true, it will take you to the Loco Function Labels screen directly
@@ -69,7 +69,7 @@
 
 // define the number of throttles that you want.
 // to use multiple throttles, one of the keys or buttons will need to be defined as NEXT_THROTTLE.  (keypad 5 is by default)
-// Maximum supported by the DccExController is 6
+// Maximum supported by the WiTcontroller is 6
 
 // #define MAX_THROTTLES                 2          // uncomment and increase the number if you always need more that two throttles
 
@@ -148,13 +148,13 @@
 // *******************************************************************************************************************
 // Debugging
 
-// DccExController console debug messages are ENABLED by default
+// WiTcontroller console debug messages are ENABLED by default
 // to disable to console messages, uncomment and set the following to  1    (i.e. 0 = on  1 = off)
-// #define DCCEXCONTROLLER_DEBUG    0
+// #define WITCONTROLLER_DEBUG    0
 
-// DCCEXProtocol console debug messages are DISABLED by default
+// WiThrottle Protocol console debug messages are DISABLED by default
 // to enable to console messages, uncomment and set the following to  0    (i.e. 0 = on  1 = off)
-// #define DCCEXPROTOCOL_DEBUG    1
+// #define WITHROTTLE_PROTOCOL_DEBUG    1
 
 // *******************************************************************************************************************
 // Default latching/momentary functions - Direct mapping only 
@@ -267,6 +267,10 @@
 //                               - set to 0 (zero) to disable
 //
 // #define USE_BATTERY_TEST true
-// #define USE_BATTERY_TEST_PIN 34
+// #define BATTERY_TEST_PIN 34
+// #define BATTERY_CONVERSION_FACTOR 1.7
 // #define USE_BATTERY_PERCENT_AS_WELL_AS_ICON false
 // #define USE_BATTERY_SLEEP_AT_PERCENT 3   // will put the device to sleep if the battery falls below this level
+
+// *******************************************************************************************************************
+//

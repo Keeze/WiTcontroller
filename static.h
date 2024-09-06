@@ -1,5 +1,5 @@
 const String appName = "WiTcontroller";
-const String appVersion = "              v1.53";
+const String appVersion = "v1.61";
 
 #ifndef DEVICE_NAME
    #define DEVICE_NAME "WiTcontroller"
@@ -91,6 +91,11 @@ const int last_oled_screen_all_locos =        7;
 const int last_oled_screen_edit_consist =     8;
 const int last_oled_screen_direct_commands =  9;
 
+typedef enum ShowBattery {
+    NONE = 0,
+    ICON_ONLY = 1,
+    ICON_AND_PERCENT = 2
+} ShowBattery;
 
 #ifndef DIRECT_COMMAND_LIST
   #define DIRECT_COMMAND_LIST            "Direct Commands"
@@ -464,10 +469,8 @@ const char ssidPasswordBlankChar = 164;
 // #define FONT_DIRECTION u8g2_font_profont17_tr
 #define FONT_DIRECTION u8g2_font_neuecraft_tr
 // #define FONT_TRACK_POWER u8g2_font_profont10_tf
-#define FONT_TRACK_POWER u8g2_font_open_iconic_all_1x_t
-#define FONT_HEARTBEAT u8g2_font_open_iconic_all_1x_t // and battery
-#define FONT_SPEED_STEP u8g2_font_open_iconic_all_1x_t
 #define FONT_NEXT_THROTTLE u8g2_font_6x12_m_symbols
+#define FONT_GLYPHS u8g2_font_open_iconic_all_1x_t
 
 // *******************************************************************************************************************
 
@@ -627,10 +630,44 @@ const char ssidPasswordBlankChar = 164;
    #define CUSTOM_COMMAND_7 ""
 #endif 
 
-
-
 // *******************************************************************************************************************
-// defult direct functions
+// default direct functions
+
+// Labels that will appear in the UI
+// These should match the actual  command below
+
+#ifndef CHOSEN_KEYPAD_0_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_0_DISPLAY_NAME "0 Lights"
+#endif
+#ifndef CHOSEN_KEYPAD_1_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_1_DISPLAY_NAME "1 Bell"
+#endif
+#ifndef CHOSEN_KEYPAD_2_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_2_DISPLAY_NAME "2 Horn"
+#endif
+#ifndef CHOSEN_KEYPAD_3_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_3_DISPLAY_NAME "3 F3"
+#endif
+#ifndef CHOSEN_KEYPAD_4_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_4_DISPLAY_NAME "4 F4"
+#endif
+#ifndef CHOSEN_KEYPAD_5_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_5_DISPLAY_NAME "5 Nxt Ttl"
+#endif
+#ifndef CHOSEN_KEYPAD_6_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_6_DISPLAY_NAME "6 X Spd"
+#endif
+#ifndef CHOSEN_KEYPAD_7_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_7_DISPLAY_NAME "7 Rev"
+#endif
+#ifndef CHOSEN_KEYPAD_8_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_8_DISPLAY_NAME "8 Estop"
+#endif
+#ifndef CHOSEN_KEYPAD_9_DISPLAY_NAME
+   #define CHOSEN_KEYPAD_9_DISPLAY_NAME "9 Fwd"
+#endif
+
+// actual commands
 
 #ifndef CHOSEN_KEYPAD_0_FUNCTION
    #define CHOSEN_KEYPAD_0_FUNCTION     FUNCTION_0
@@ -674,7 +711,33 @@ const char ssidPasswordBlankChar = 164;
 #ifndef CHOSEN_KEYPAD_D_FUNCTION
    #define CHOSEN_KEYPAD_D_FUNCTION     CUSTOM_4
 #endif
+
+// *******************************************************************************************************************
+
+#ifndef CHOSEN_ADDITIONAL_BUTTON_0_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_0_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_1_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_1_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_2_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_2_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_3_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_3_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_4_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_4_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_5_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_5_FUNCTION FUNCTION_NULL
+#endif
+#ifndef CHOSEN_ADDITIONAL_BUTTON_6_FUNCTION
+  #define CHOSEN_ADDITIONAL_BUTTON_6_FUNCTION FUNCTION_NULL
+#endif
    
+// *******************************************************************************************************************
+
 #ifndef USE_ROTARY_ENCODER_FOR_THROTTLE
    #define USE_ROTARY_ENCODER_FOR_THROTTLE true
 #endif
@@ -690,15 +753,40 @@ const char ssidPasswordBlankChar = 164;
 #ifndef THROTTLE_POT_NOTCH_SPEEDS
    #define THROTTLE_POT_NOTCH_SPEEDS {0,18,36,54,72,90,108,127}
 #endif
+
+// *******************************************************************************************************************
+
 #ifndef USE_BATTERY_TEST
    #define USE_BATTERY_TEST false
 #endif
 #ifndef BATTERY_TEST_PIN
    #define BATTERY_TEST_PIN 34
 #endif
+#ifndef BATTERY_CONVERSION_FACTOR
+   #define BATTERY_CONVERSION_FACTOR 1.7
+#endif
 #ifndef USE_BATTERY_PERCENT_AS_WELL_AS_ICON
    #define USE_BATTERY_PERCENT_AS_WELL_AS_ICON false
 #endif
 #ifndef USE_BATTERY_SLEEP_AT_PERCENT
    #define USE_BATTERY_SLEEP_AT_PERCENT 3
+#endif
+
+// ***************************************************
+//  ESPmDNS problem
+
+// #ifndef USING_OLDER_ESPMDNS
+//    #define USING_OLDER_ESPMDNS false
+// #endif
+
+// #if USING_OLDER_ESPMDNS == true
+//   #define ESPMDNS_IP_ATTRIBUTE_NAME MDNS.IP(i)
+// #else
+//   #define ESPMDNS_IP_ATTRIBUTE_NAME MDNS.address(i)
+// #endif
+
+#if ESP_IDF_VERSION_MAJOR < 5
+  #define ESPMDNS_IP_ATTRIBUTE_NAME MDNS.IP(i)
+#else
+  #define ESPMDNS_IP_ATTRIBUTE_NAME MDNS.address(i)
 #endif
